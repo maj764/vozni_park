@@ -1,11 +1,14 @@
 /*ustvari servis*/
 CREATE OR REPLACE FUNCTION ustvari_servis(s_datum date, s_vrsta varchar, s_km int, s_opis text,
-s_naslednji date, v_id int, u_id int)
+s_naslednji date, v_id int, u_id int, s_znesek real)
 RETURNS VOID AS
     $$
     BEGIN
-        INSERT INTO servisi (datum, vrsta, km, opis, naslednji_servis, vozilo_id, uporabnik_id) 
-        VALUES (s_datum, s_vrsta, s_km, s_opis, s_naslednji, v_id, u_id); 
+        INSERT INTO servisi (datum, vrsta, km, opis, naslednji_servis, vozilo_id, uporabnik_id)
+        VALUES (s_datum, s_vrsta, s_km, s_opis, s_naslednji, v_id, u_id);
+        INSERT INTO stroski (datum, kategorija, znesek, vozilo_id, servis_id, uporabnik_id)
+        VALUES (s_datum, 'servis', s_znesek, v_id, 
+                (SELECT id FROM servisi ORDER BY id DESC LIMIT 1), u_id);
     END;
     $$
 LANGUAGE 'plpgsql';
@@ -89,4 +92,5 @@ RETURNS VOID AS
         WHERE id = s_id;
     END;
     $$
+
 LANGUAGE 'plpgsql';
