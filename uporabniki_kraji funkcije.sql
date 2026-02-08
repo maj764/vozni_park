@@ -9,6 +9,7 @@ RETURNS TABLE (
 
 AS $$
   BEGIN
+  RETURN QUERY
   SELECT k.id, k.ime, k.posta
   FROM public.kraji k
   WHERE k.id = p_id;
@@ -26,6 +27,7 @@ RETURNS TABLE (
 )
 AS $$
   BEGIN
+  RETURN QUERY
   SELECT k.id, k.ime, k.posta
   FROM public.kraji k
   ORDER BY k.posta, k.ime;
@@ -107,3 +109,4 @@ $$
     END;
 $$
 LANGUAGE 'plpgsql';
+
