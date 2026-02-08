@@ -1,12 +1,38 @@
+
 /*Dobi en kraj*/
-SELECT k.id, k.ime, k.posta
-FROM public.kraji k
-WHERE k.id = p_id;
+CREATE OR REPLACE FUNCTION kraj_get(p_id integer)
+RETURNS TABLE (
+  id integer,
+  ime character varying,
+  posta character varying
+)
+
+AS $$
+  BEGIN
+  SELECT k.id, k.ime, k.posta
+  FROM public.kraji k
+  WHERE k.id = p_id;
+  END;
+$$
+LANGUAGE 'plpgsql';
+
 
 /*Dobi list krajev*/
-SELECT k.id, k.ime, k.posta
-FROM public.kraji k
-ORDER BY k.posta, k.ime;
+CREATE OR REPLACE FUNCTION kraji_list()
+RETURNS TABLE (
+  id integer,
+  ime character varying,
+  posta character varying
+)
+AS $$
+  BEGIN
+  SELECT k.id, k.ime, k.posta
+  FROM public.kraji k
+  ORDER BY k.posta, k.ime;
+  END;
+$$
+LANGUAGE 'plpgsql';
+
 
 /*registracija*/
 CREATE OR REPLACE function registracija(u_ime varchar, u_priimek varchar, u_email varchar, pass varchar, kraj varchar, datum date)
