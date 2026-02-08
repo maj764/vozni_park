@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.*;
 import si.majkovac.avtopark.dto.PrijavaRequest;
 import si.majkovac.avtopark.dto.RegistracijaRequest;
 import si.majkovac.avtopark.dto.UporabnikDto;
-import si.majkovac.avtopark.repository.UporabnikiRepository;
+import si.majkovac.avtopark.repository.UporabnikRepository;
 
 @RestController
 @RequestMapping("/api/uporabniki")
 public class UporabnikiController {
 
-    private final UporabnikiRepository repo;
+    private final UporabnikRepository repo;
 
-    public UporabnikiController(UporabnikiRepository repo) {
+    public UporabnikiController(UporabnikRepository repo) {
         this.repo = repo;
     }
 

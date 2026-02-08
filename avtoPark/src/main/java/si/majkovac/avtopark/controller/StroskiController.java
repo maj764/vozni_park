@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import si.majkovac.avtopark.dto.StrosekCreateRequest;
 import si.majkovac.avtopark.dto.StrosekDto;
 import si.majkovac.avtopark.dto.StrosekUpdateRequest;
-import si.majkovac.avtopark.repository.StroskiRepository;
+import si.majkovac.avtopark.repository.StrosekRepository;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping("/api/stroski")
 public class StroskiController {
 
-    private final StroskiRepository repo;
+    private final StrosekRepository repo;
 
-    public StroskiController(StroskiRepository repo) {
+    public StroskiController(StrosekRepository repo) {
         this.repo = repo;
     }
 

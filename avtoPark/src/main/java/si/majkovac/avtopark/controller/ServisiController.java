@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import si.majkovac.avtopark.dto.ServisCreateRequest;
 import si.majkovac.avtopark.dto.ServisDto;
 import si.majkovac.avtopark.dto.ServisUpdateRequest;
-import si.majkovac.avtopark.repository.ServisiRepository;
+import si.majkovac.avtopark.repository.ServisRepository;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
 @RequestMapping("/api/servisi")
 public class ServisiController {
 
-    private final ServisiRepository repo;
+    private final ServisRepository repo;
 
-    public ServisiController(ServisiRepository repo) {
+    public ServisiController(ServisRepository repo) {
         this.repo = repo;
     }
 

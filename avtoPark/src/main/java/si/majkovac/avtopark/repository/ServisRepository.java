@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ServisiRepository {
+public class ServisRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public ServisiRepository(JdbcTemplate jdbcTemplate) {
+    public ServisRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

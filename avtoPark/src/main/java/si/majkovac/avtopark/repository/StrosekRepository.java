@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class StroskiRepository {
+public class StrosekRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public StroskiRepository(JdbcTemplate jdbcTemplate) {
+    public StrosekRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
