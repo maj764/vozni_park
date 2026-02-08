@@ -17,13 +17,11 @@ public class KrajiController {
         this.repo = repo;
     }
 
-    /** GET /api/kraji  -> fn_kraji_list() */
     @GetMapping
     public List<KrajDto> list() {
         return repo.list();
     }
 
-    /** GET /api/kraji/{id} -> fn_kraj_get(id) */
     @GetMapping("/{id}")
     public ResponseEntity<KrajDto> get(@PathVariable int id) {
         return repo.getById(id)

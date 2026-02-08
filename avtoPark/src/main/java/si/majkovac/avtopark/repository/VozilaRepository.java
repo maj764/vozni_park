@@ -33,13 +33,11 @@ public class VozilaRepository {
                     rs.getString("znamka")
             );
 
-    /** SELECT * FROM vozila_list() */
     public List<VoziloDto> list() {
         String sql = "SELECT * FROM public.vozila_list()";
         return jdbcTemplate.query(sql, VOZILO_MAPPER);
     }
 
-    /** SELECT * FROM dobi_vozilo(v_id) */
     public Optional<VoziloDto> getById(int id) {
         // dobi_vozilo vrača brez "id" v tvojem seznamu (vračal je samo polja)
         // zato najlažje: naredimo query z "id" dodanim v selectu
@@ -51,7 +49,6 @@ public class VozilaRepository {
         return rows.stream().findFirst();
     }
 
-    /** SELECT insert_vozilo(...) */
     public void insert(VoziloCreateRequest r) {
         String sql = "SELECT public.insert_vozilo(?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
@@ -66,7 +63,6 @@ public class VozilaRepository {
         );
     }
 
-    /** SELECT update_vozilo(...) */
     public void update(int id, VoziloUpdateRequest r) {
         String sql = "SELECT public.update_vozilo(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
@@ -82,7 +78,6 @@ public class VozilaRepository {
         );
     }
 
-    /** SELECT brisi_vozilo(v_id) */
     public void delete(int id) {
         String sql = "SELECT public.brisi_vozilo(?)";
         jdbcTemplate.update(sql, id);

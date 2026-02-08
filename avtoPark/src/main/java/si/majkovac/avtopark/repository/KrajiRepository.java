@@ -24,13 +24,11 @@ public class KrajiRepository {
                     rs.getString("posta")
             );
 
-    /** SELECT * FROM fn_kraji_list() */
     public List<KrajDto> list() {
         String sql = "SELECT * FROM kraji_list()";
         return jdbcTemplate.query(sql, KRAJ_MAPPER);
     }
 
-    /** SELECT * FROM fn_kraj_get(p_id) */
     public Optional<KrajDto> getById(int id) {
         String sql = "SELECT * FROM kraj_get(?)";
         List<KrajDto> rows = jdbcTemplate.query(sql, KRAJ_MAPPER, id);
