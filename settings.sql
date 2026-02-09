@@ -1,61 +1,40 @@
 
-CREATE TABLE IF NOT EXISTS public.user_settings (
-  id serial PRIMARY KEY,
-  uporabnik_id int NOT NULL REFERENCES public.uporabniki(id) ON DELETE CASCADE,
-  key varchar(50) NOT NULL,
-  value text NOT NULL,
-  CONSTRAINT uq_user_settings UNIQUE (uporabnik_id, key)
+CREATE TABLE IF NOT EXISTS settings (
+  id SERIAL PRIMARY KEY,
+  uporabnik_id INT NOT NULL UNIQUE REFERENCES uporabniki(id) ON DELETE CASCADE,
+  bg_color VARCHAR(20) NOT NULL DEFAULT '#1e1e1e',
+  text_color VARCHAR(20) NOT NULL DEFAULT '#ffffff',
+  accent_color VARCHAR(20) NOT NULL DEFAULT '#4f8cff'
 );
 
-CREATE OR REPLACE FUNCTION public.user_settings_init(p_uporabnik_id int)
-RETURNS void AS
-$$
-BEGIN
-  INSERT INTO public.user_settings(uporabnik_id, key, value) VALUES
-    (p_uporabnik_id, 'bg_color', '#111827'),
-    (p_uporabnik_id, 'text_color', '#E5E7EB'),
-    (p_uporabnik_id, 'accent_color', '#22C55E')
-  ON CONFLICT (uporabnik_id, key) DO NOTHING;
-END;
-$$ LANGUAGE plpgsql;
 
-
-CREATE OR REPLACE FUNCTION public.user_settings_list(p_uporabnik_id int)
-RETURNS TABLE(key varchar, value text) AS
-$$
+CREATE OR REPLACE FUNCTION settings_get(u_id INT)
+RETURNS TABLE(
+  bg_color VARCHAR,
+  text_color VARCHAR,
+  accent_color VARCHAR
+)
+AS $$
 BEGIN
-  PERFORM public.user_settings_init(p_uporabnik_id);
+  INSERT INTO settings (uporabnik_id)
+  VALUES (u_id)
+  ON CONFLICT (uporabnik_id) DO NOTHING;
 
   RETURN QUERY
-  SELECT s.key, s.value
-  FROM public.user_settings s
-  WHERE s.uporabnik_id = p_uporabnik_id
-  ORDER BY s.key;
+  SELECT s.bg_color, s.text_color, s.accent_color
+  FROM settings s
+  WHERE s.uporabnik_id = u_id;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION public.user_settings_get(p_uporabnik_id int, p_key varchar)
-RETURNS TABLE(key varchar, value text) AS
-$$
+CREATE OR REPLACE FUNCTION settings_update(u_id INT, p_bg VARCHAR, p_text VARCHAR, p_accent VARCHAR)
+RETURNS VOID AS $$
 BEGIN
-  PERFORM public.user_settings_init(p_uporabnik_id);
-
-  RETURN QUERY
-  SELECT s.key, s.value
-  FROM public.user_settings s
-  WHERE s.uporabnik_id = p_uporabnik_id AND s.key = p_key;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION public.user_settings_set(p_uporabnik_id int, p_key varchar, p_value text)
-RETURNS void AS
-$$
-BEGIN
-  PERFORM public.user_settings_init(p_uporabnik_id);
-
-  INSERT INTO public.user_settings(uporabnik_id, key, value)
-  VALUES (p_uporabnik_id, p_key, p_value)
-  ON CONFLICT (uporabnik_id, key)
-  DO UPDATE SET value = EXCLUDED.value;
+  INSERT INTO settings (uporabnik_id, bg_color, text_color, accent_color)
+  VALUES (u_id, p_bg, p_text, p_accent)
+  ON CONFLICT (uporabnik_id) DO UPDATE
+  SET bg_color = EXCLUDED.bg_color,
+      text_color = EXCLUDED.text_color,
+      accent_color = EXCLUDED.accent_color;
 END;
 $$ LANGUAGE plpgsql;
