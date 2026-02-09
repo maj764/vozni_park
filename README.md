@@ -31,6 +31,7 @@ V root backend projekta ustvari datoteko .env ki naj vsebuja:
 DB_URL=jdbc:postgresql://<HOST>/<DBNAME>?sslmode=require
 DB_USER=<USERNAME>
 DB_PASS=<PASSWORD>
+SERVER_PORT=<SERVER PORT>
 ```
 V terminalu v mapi z backendom zaženi:
 gradlew bootRun
