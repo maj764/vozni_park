@@ -27,11 +27,11 @@ V sql editorju zaženi kodo iz vseh .sql ali .ddl datotek v baza branchu.
 BACKEND
 Prenesi datoteke iz Java brancha
 V root backend projekta ustvari datoteko .env ki naj vsebuja:
-
+```env
 DB_URL=jdbc:postgresql://<HOST>/<DBNAME>?sslmode=require
 DB_USER=<USERNAME>
 DB_PASS=<PASSWORD>
-
+```
 V terminalu v mapi z backendom zaženi:
 gradlew bootRun
 
