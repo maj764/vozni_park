@@ -4,9 +4,10 @@ public record VoziloCreateRequest(
         String registrska,
         int letnik,
         Integer kw,
-        int km,
+        int kilometri,
         String opis,
-        Integer uId,
+        Integer odgovorniUporabnikId,
         String model,
         String znamka
 ) {}
+

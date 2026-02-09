@@ -140,9 +140,10 @@ public class VozilaTab extends BorderPane {
                 clearForm();
                 refresh();
             } catch (Exception ex) {
-                msg.setStyle("-fx-text-fill: red;");
-                msg.setText("Napaka: preveri podatke (številke, prazna polja...).");
-            }
+            ex.printStackTrace();
+            msg.setStyle("-fx-text-fill: blue;");
+            msg.setText("Napaka: " + ex.getMessage());
+        }
         });
 
         btnClear.setOnAction(e -> {

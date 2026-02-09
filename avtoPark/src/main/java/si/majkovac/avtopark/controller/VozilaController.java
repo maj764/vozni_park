@@ -34,10 +34,8 @@ public class VozilaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@Valid @RequestBody VoziloCreateRequest request) {
+    public ResponseEntity<Void> create(@RequestBody VoziloCreateRequest request) {
         repo.insert(request);
-        // ker insert_vozilo vrača void, ne poznamo novega id.
-        // vrnemo 201 Created brez Location ali s splošnim.
         return ResponseEntity.created(URI.create("/api/vozila")).build();
     }
 

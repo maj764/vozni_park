@@ -34,36 +34,41 @@ public class StrosekRepository {
 
     public List<StrosekDto> listByVozilo(int voziloId) {
         String sql = """
-                SELECT
-                  t.id,
-                  t.datum,
-                  t.kategorija,
-                  t.opis,
-                  t.znesek,
-                  ?::int AS v_id,
-                  t.s_id AS ser_id,
-                  t.u_id
-                FROM public.stroski_vozila(?) t
-                """;
+            SELECT
+              t.id,
+              t.datum,
+              t.kategorija,
+              t.opis,
+              t.znesek,
+              ?::int AS v_id,
+              t.s_id AS ser_id,
+              t.u_id
+            FROM public.stroski_vozila(?) t
+            """;
+
+        // prvo ? = voziloId za v_id, drugo ? = argument funkcije
         return jdbcTemplate.query(sql, STROSEK_MAPPER, voziloId, voziloId);
     }
 
+
     public Optional<StrosekDto> getById(int strosekId) {
         String sql = """
-                SELECT
-                  ?::int AS id,
-                  t.datum,
-                  t.kategorija,
-                  t.opis,
-                  t.znesek,
-                  t.v_id,
-                  t.ser_id,
-                  t.u_id
-                FROM public.dobi_strosek(?) t
-                """;
+            SELECT
+              ?::int AS id,
+              t.datum,
+              t.kategorija,
+              t.opis,
+              t.znesek,
+              t.v_id,
+              t.ser_id,
+              t.u_id
+            FROM public.dobi_strosek(?) t
+            """;
+
         List<StrosekDto> rows = jdbcTemplate.query(sql, STROSEK_MAPPER, strosekId, strosekId);
         return rows.stream().findFirst();
     }
+
 
     public void create(StrosekCreateRequest r) {
         jdbcTemplate.update(

@@ -86,6 +86,8 @@ public class ApiClient {
     public void put(String path, Object body) {
         try {
             String json = om.writeValueAsString(body);
+            System.out.println("PUT " + baseUrl + path);
+            System.out.println(json);
             HttpRequest req = HttpRequest.newBuilder()
                     .uri(URI.create(baseUrl + path))
                     .PUT(HttpRequest.BodyPublishers.ofString(json))

@@ -4,9 +4,9 @@ public record VoziloUpdateRequest(
         String registrska,
         int letnik,
         Integer kw,
-        int km,
+        int kilometri,
         String opis,
-        Integer vOup,
+        Integer odgovorniUporabnikId,
         String model,
         String znamka
 ) {}
